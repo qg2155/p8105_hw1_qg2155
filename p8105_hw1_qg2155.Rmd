@@ -2,6 +2,9 @@
 title: "p8105_hw1_qg2155"
 output: html_document
 ---
+## Question #1
+
+Creating the dataframe 
 ```{r question_1}
 library(tidyverse)
 
@@ -13,4 +16,14 @@ question_1 = tibble(
 )
 
 question_1
+
+## Taking the average of each variable
+mean(question_1$vec_random)
+mean(question_1$vec_logical)
+mean(question_1$vec_char)
+mean(question_1$vec_factor)
 ```
+When trying to take the average of each variable, the output for variable vec_random is 2.760793 and vec_logical is 0.5. The results for vec_char and vec_factor are both NA. The error message for the character and factor vectors are that argument is not numeric or logical.  
+
+
+
