@@ -2,4 +2,15 @@
 title: "p8105_hw1_qg2155"
 output: html_document
 ---
+```{r question_1}
+library(tidyverse)
 
+question_1 = tibble(
+  vec_random = runif(10, 0, 5),
+  vec_logical = vec_random > 2,
+  vec_char = c("This", "is", "my", "answer", "to", "homework", "one", "question", "number", "one"),
+  vec_factor = factor(c("yes", "no", "yes", "no", "yes", "no", "yes", "no", "yes", "no"))
+)
+
+question_1
+```
