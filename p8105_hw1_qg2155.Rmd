@@ -1,12 +1,19 @@
 ---
 title: "p8105_hw1_qg2155"
+author: "Helen Guan"
+date: "9/18/2018"
 output: html_document
 ---
-## Question #1
 
-Creating the dataframe 
-```{r question_1}
+Question #1
+ 
+```{r dataframe}
 library(tidyverse)
+
+## set seed to get the same result every time for vec_random variable
+set.seed(55)
+
+## creating the dataframe
 
 question_1 = tibble(
   vec_random = runif(10, 0, 5),
@@ -15,6 +22,7 @@ question_1 = tibble(
   vec_factor = factor(c("yes", "no", "yes", "no", "yes", "no", "yes", "no", "yes", "no"))
 )
 
+## viewing the dataframe
 question_1
 
 ## Taking the average of each variable
@@ -23,7 +31,20 @@ mean(question_1$vec_logical)
 mean(question_1$vec_char)
 mean(question_1$vec_factor)
 ```
-When trying to take the average of each variable, the output for variable vec_random is 2.760793 and vec_logical is 0.5. The results for vec_char and vec_factor are both NA. The error message for the character and factor vectors are that argument is not numeric or logical.  
+When trying to take the average of each variable, the output for variable vec_random is 1.620843 and vec_logical is 0.4. The results for vec_char and vec_factor are both NA. The error message for the character and factor vectors are that argument is not numeric or logical.  
 
+```{r convert}
+## transforming variable types
+vec_logical_num = as.numeric(question_1$vec_logical)
+vec_char_num = as.numeric(question_1$vec_char)
+vec_factor_num = as.numeric(question_1$vec_factor)
+```
+The logical and factor vectors were converted to numeric vector. But the character vector received error message stating that NAs introduced by coercion. The mean of the logical vector was 0.4 and fator vector was 1.5, but the mean of character variable still produced the output of NA.
 
+```{r convert2}
+## transforming character variable to factor to numeric and factor variable to character to numeric 
+vec_char_new = as.numeric(as.factor(question_1$vec_char))
+vec_factor_new = as.numeric(as.character(question_1$vec_factor))
+```
+I was successfully able to convert the character variable to factor to numeric, and got a mean of 5.1. However, when I converted the factor variable to character to numeric, I got the same warning message that NAs were introduced by coercion. When I tried to take the mean of the new variable, the output was NA. It appears that character variables cannot be converted directly to numeric. Character variables first need to be converted to factor and then to numeric in order for it to work. 
 
