@@ -6,15 +6,15 @@ output: html_document
 ---
 
 Question #1
+------------
  
-```{r dataframe}
+```{r dataframe1}
 library(tidyverse)
 
 ## set seed to get the same result every time for vec_random variable
 set.seed(55)
 
 ## creating the dataframe
-
 question_1 = tibble(
   vec_random = runif(10, 0, 5),
   vec_logical = vec_random > 2,
@@ -47,4 +47,34 @@ vec_char_new = as.numeric(as.factor(question_1$vec_char))
 vec_factor_new = as.numeric(as.character(question_1$vec_factor))
 ```
 I was successfully able to convert the character variable to factor to numeric, and got a mean of 5.1. However, when I converted the factor variable to character to numeric, I got the same warning message that NAs were introduced by coercion. When I tried to take the mean of the new variable, the output was NA. It appears that character variables cannot be converted directly to numeric. Character variables first need to be converted to factor and then to numeric in order for it to work. 
+
+Question #2
+--------
+```{r dataframe2}
+## set seed to ensure reproducibility
+set.seed(808)
+
+## creating the dataframe
+question_2 = tibble(
+  x = rnorm(1000, 0, 1),
+  y = rnorm(1000, 0, 1),
+  xyvec_logic = x + y > 0,
+  xyvec_num = as.numeric(xyvec_logic),
+  xyvec_fac = as.factor(xyvec_logic)
+)
+
+## viewing the dataframe
+question_2
+```
+The size of this dataset has `r length(question_2)` variables. X and Y are random sample of size 1000 from a standard Normal distribution. xyvec_logic is a logical vector that indicates whether x + y is greater than 0. xyvec_num is a numeric and xyvec_fac is a factor conversion of the logical vector. The mean of x is `r mean(question_2$x)` and the median of x is `r median(question_2$x)`. The proportion of cases for which the logical vector is true is `r prop.table(table(question_2$xyvec_logic))[2]`.
+
+```{r plots}
+## creating scatterplot of y vs x using logical vector for color points
+ggplot(question_2, aes(x = x, y = y, color = xyvec_logic)) + geom_point()
+ggsave("scatter_plot.pdf", height = 4, width = 6)
+
+## creating scatterplots y vs x using the numeric and factor vectors for color points
+ggplot(question_2, aes(x = x, y = y, color = xyvec_num)) + geom_point()
+ggplot(question_2, aes(x = x, y = y, color = xyvec_fac)) + geom_point()
+```
 
