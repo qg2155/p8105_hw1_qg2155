@@ -2,7 +2,7 @@
 title: "p8105_hw1_qg2155"
 author: "Helen Guan"
 date: "9/18/2018"
-output: html_document
+output: github_document
 ---
 
 Question #1
@@ -35,16 +35,17 @@ When trying to take the average of each variable, the output for variable vec_ra
 
 ```{r convert}
 ## transforming variable types
-vec_logical_num = as.numeric(question_1$vec_logical)
-vec_char_num = as.numeric(question_1$vec_char)
-vec_factor_num = as.numeric(question_1$vec_factor)
+as.numeric(question_1$vec_logical)
+as.numeric(question_1$vec_char)
+as.numeric(question_1$vec_factor)
 ```
 The logical and factor vectors were converted to numeric vector. But the character vector received error message stating that NAs introduced by coercion. The mean of the logical vector was 0.4 and fator vector was 1.5, but the mean of character variable still produced the output of NA.
 
 ```{r convert2}
 ## transforming character variable to factor to numeric and factor variable to character to numeric 
-vec_char_new = as.numeric(as.factor(question_1$vec_char))
-vec_factor_new = as.numeric(as.character(question_1$vec_factor))
+as.numeric(as.factor(question_1$vec_char))
+
+as.numeric(as.character(question_1$vec_factor))
 ```
 I was successfully able to convert the character variable to factor to numeric, and got a mean of 5.1. However, when I converted the factor variable to character to numeric, I got the same warning message that NAs were introduced by coercion. When I tried to take the mean of the new variable, the output was NA. It appears that character variables cannot be converted directly to numeric. Character variables first need to be converted to factor and then to numeric in order for it to work. 
 
@@ -56,8 +57,8 @@ set.seed(808)
 
 ## creating the dataframe
 question_2 = tibble(
-  x = rnorm(1000, 0, 1),
-  y = rnorm(1000, 0, 1),
+  x = rnorm(1000),
+  y = rnorm(1000),
   xyvec_logic = x + y > 0,
   xyvec_num = as.numeric(xyvec_logic),
   xyvec_fac = as.factor(xyvec_logic)
@@ -66,7 +67,9 @@ question_2 = tibble(
 ## viewing the dataframe
 question_2
 ```
-This dataset has `r nrow(question_2)` rows and `r ncol(question_2)` columns. X and Y are random sample of size 1000 from a standard Normal distribution. xyvec_logic is a logical vector that indicates whether x + y is greater than 0. xyvec_num is a numeric and xyvec_fac is a factor conversion of the logical vector. The mean of x is `r mean(question_2$x)` and the median of x is `r median(question_2$x)`. The proportion of cases for which the logical vector is true is `r prop.table(table(question_2$xyvec_logic))[2]`.
+This dataset has `r nrow(question_2)` rows and `r ncol(question_2)` columns. X and Y are random sample of size 1000 from a standard Normal distribution. xyvec_logic is a logical vector that indicates whether x + y is greater than 0. xyvec_num is a numeric and xyvec_fac is a factor conversion of the logical vector. The mean of x is `r mean(question_2$x)` and the median of x is `r median(question_2$x)`. The proportion of cases for which the logical vector is true is `r mean(question_2$xyvec_logic == TRUE)`.
+
+Without true, it is `r mean(question_2$xyvec_logic)`.
 
 ```{r plots}
 ## creating scatterplot of y vs x using logical vector for color points
