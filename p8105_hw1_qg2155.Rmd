@@ -66,7 +66,7 @@ question_2 = tibble(
 ## viewing the dataframe
 question_2
 ```
-The size of this dataset has `r length(question_2)` variables. X and Y are random sample of size 1000 from a standard Normal distribution. xyvec_logic is a logical vector that indicates whether x + y is greater than 0. xyvec_num is a numeric and xyvec_fac is a factor conversion of the logical vector. The mean of x is `r mean(question_2$x)` and the median of x is `r median(question_2$x)`. The proportion of cases for which the logical vector is true is `r prop.table(table(question_2$xyvec_logic))[2]`.
+This dataset has `r nrow(question_2)` rows and `r ncol(question_2)` columns. X and Y are random sample of size 1000 from a standard Normal distribution. xyvec_logic is a logical vector that indicates whether x + y is greater than 0. xyvec_num is a numeric and xyvec_fac is a factor conversion of the logical vector. The mean of x is `r mean(question_2$x)` and the median of x is `r median(question_2$x)`. The proportion of cases for which the logical vector is true is `r prop.table(table(question_2$xyvec_logic))[2]`.
 
 ```{r plots}
 ## creating scatterplot of y vs x using logical vector for color points
